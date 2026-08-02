@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6d28d9" />
+  <meta name="description" content="Laughrina — your wild-hearted comedy friend." />
+  <title>Laughrina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo" aria-hidden="true">🌻</div>
+        <div>
+          <p class="eyebrow">THE POCKET COMEDY CLUB PRESENTS</p>
+          <h1>Laughrina</h1>
+          <p class="tagline">Your wild-hearted comedy friend.</p>
+        </div>
+      </div>
+      <button id="themeButton" class="icon-button" type="button" aria-label="Toggle theme">☾</button>
+    </header>
+
+    <section class="hero-card">
+      <div class="mascot" aria-hidden="true">
+        <div class="hair">✦</div>
+        <div class="face">
+          <span class="eye">●</span><span class="eye">●</span>
+          <span class="smile">⌣</span>
+        </div>
+        <div class="mic">🎤</div>
+      </div>
+      <div class="hero-copy">
+        <p id="introLine" class="intro-line">Okay, tell me what kind of day we're working with.</p>
+        <div id="moodGrid" class="mood-grid" aria-label="Choose a comedy mood"></div>
+      </div>
+    </section>
+
+    <section class="stage-card" aria-live="polite">
+      <div class="stage-lights" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p id="modeLabel" class="mode-label">PORCH TALK</p>
+      <blockquote id="jokeText">I cleaned one corner of the room and immediately started acting like I had my life together.</blockquote>
+      <p id="jokeTag" class="joke-tag">— suspiciously productive</p>
+      <div class="stage-actions">
+        <button id="favoriteButton" class="secondary-button" type="button">♡ Save</button>
+        <button id="nextButton" class="primary-button" type="button">Hit me again 😂</button>
+      </div>
+    </section>
+
+    <section class="control-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">LAUGHRINA'S TOOLBOX</p>
+            <h2>Comedy modes</h2>
+          </div>
+          <span id="favoriteCount" class="counter">0 saved</span>
+        </div>
+        <div id="modeGrid" class="mode-grid"></div>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">GENTLE FIRE</p>
+        <h2>Roast dial</h2>
+        <p class="muted">Playful only. Laughrina roasts nonsense—not people's wounds.</p>
+        <input id="roastSlider" type="range" min="1" max="3" value="1" />
+        <div class="slider-labels"><span>Warm tease</span><span>Little crispy</span><span>Truth with glitter</span></div>
+        <button id="roastButton" class="roast-button" type="button">Give me a friendly roast 🔥</button>
+      </article>
+    </section>
+
+    <section class="panel favorites-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">KEEPERS</p>
+          <h2>Saved laughs</h2>
+        </div>
+        <button id="clearFavorites" class="text-button" type="button">Clear all</button>
+      </div>
+      <div id="favoritesList" class="favorites-list">
+        <p class="empty-state">Your favorite jokes will wait here like snacks hidden from everybody else.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made for good hearts, strange days, animal chaos, and people who absolutely noticed that.</p>
+      <p class="tiny">Local-first • No account • No tracking</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
