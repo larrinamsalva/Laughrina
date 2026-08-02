@@ -11,14 +11,14 @@ const moods = [["😊","Need a smile","Porch Talk"],["😮‍💨","Long day","A
 const roasts = {1:["You are doing great. Your decision-making just occasionally wears flip-flops to a construction site.","You're not a mess. You're a limited-edition organizational mystery.","You have main-character energy and background-tab memory."],2:["You said ‘I got this’ with the confidence of someone who had not yet looked at the instructions.","Your attention span just left to investigate a noise in another room.","You're not avoiding the task. You're giving it time to think about what it did."],3:["That plan had confidence, glitter, and absolutely no adult supervision.","Your ego brought a microphone to a conversation that needed headphones.","You didn't miss the red flag. You admired the fabric and asked whether it came in purple."]};
 
 const fartTypes = [
-  {name:"Tiny Toot",emoji:"🌬️",pitch:105,duration:.22,stars:2,safety:"Adorable",comments:["Did somebody open a soda?","That fart apologized before it left.","A mouse somewhere just said, ‘Excuse you.’"]},
-  {name:"Silent Assassin",emoji:"🤫",pitch:48,duration:1.15,stars:5,safety:"Delayed danger",comments:["The room will figure it out eventually.","No sound. Just consequences.","Maintain eye contact and deny everything."]},
-  {name:"Tractor Pull",emoji:"🚜",pitch:58,duration:1.45,stars:4,safety:"Farm equipment",comments:["That wasn't a fart. That was a diesel engine asking for overtime.","Three dogs left and one cat filed a complaint.","Sounds expensive."]},
-  {name:"Taco Tuesday",emoji:"🌮",pitch:72,duration:1.05,stars:5,safety:"Spicy emergency",comments:["The beans have entered the chat.","This is why the windows have handles.","Your stomach just launched a mariachi band."]},
-  {name:"Rocket Booster",emoji:"🚀",pitch:84,duration:1.3,stars:5,safety:"Clear the launchpad",comments:["Houston, we have propulsion.","That fart achieved low Earth orbit.","Three... two... too late!"]},
-  {name:"Wet & Risky",emoji:"🐸",pitch:42,duration:.85,stars:5,safety:"Do not trust",comments:["That one came with paperwork.","A brave choice in light-colored pants.","Never gamble on a fart after forty."]},
-  {name:"Brass Section",emoji:"🎺",pitch:118,duration:.75,stars:3,safety:"Musical",comments:["In the key of B-flatulent.","The orchestra would like its tuba back.","That fart had a solo and an encore."]},
-  {name:"Nuclear Option",emoji:"☢️",pitch:34,duration:1.8,stars:5,safety:"Evacuate immediately",comments:["That fart has its own weather system.","The wallpaper just curled up.","Code brown. Repeat: code brown."]}
+  {name:"Tiny Toot",emoji:"🌬️",pitch:180,duration:.35,stars:2,safety:"Adorable",comments:["Did somebody open a soda?","That fart apologized before it left.","A mouse somewhere just said, ‘Excuse you.’"]},
+  {name:"Silent Assassin",emoji:"🤫",pitch:120,duration:1.15,stars:5,safety:"Delayed danger",comments:["The room will figure it out eventually.","No sound. Just consequences.","Maintain eye contact and deny everything."]},
+  {name:"Tractor Pull",emoji:"🚜",pitch:135,duration:1.45,stars:4,safety:"Farm equipment",comments:["That wasn't a fart. That was a diesel engine asking for overtime.","Three dogs left and one cat filed a complaint.","Sounds expensive."]},
+  {name:"Taco Tuesday",emoji:"🌮",pitch:155,duration:1.05,stars:5,safety:"Spicy emergency",comments:["The beans have entered the chat.","This is why the windows have handles.","Your stomach just launched a mariachi band."]},
+  {name:"Rocket Booster",emoji:"🚀",pitch:175,duration:1.3,stars:5,safety:"Clear the launchpad",comments:["Houston, we have propulsion.","That fart achieved low Earth orbit.","Three... two... too late!"]},
+  {name:"Wet & Risky",emoji:"🐸",pitch:115,duration:.95,stars:5,safety:"Do not trust",comments:["That one came with paperwork.","A brave choice in light-colored pants.","Never gamble on a fart after forty."]},
+  {name:"Brass Section",emoji:"🎺",pitch:220,duration:.85,stars:3,safety:"Musical",comments:["In the key of B-flatulent.","The orchestra would like its tuba back.","That fart had a solo and an encore."]},
+  {name:"Nuclear Option",emoji:"☢️",pitch:105,duration:1.9,stars:5,safety:"Evacuate immediately",comments:["That fart has its own weather system.","The wallpaper just curled up.","Code brown. Repeat: code brown."]}
 ];
 const fortunes=["Today's wind becomes tomorrow's legend.","Beans remember.","A closed window reveals a true friend.","Some heroes wear capes. Others open windows.","Great pressure creates great stories.","The quietest breeze may carry the loudest lesson.","Never trust a silent room after taco night."];
 
@@ -32,7 +32,64 @@ function isSaved(t){return favorites.some(i=>i.text===t);}function updateFavorit
 function renderFavorites(){favoritesList.innerHTML="";favoriteCount.textContent=`${favorites.length} saved`;if(!favorites.length){favoritesList.innerHTML='<p class="empty-state">Your favorite jokes will wait here like snacks hidden from everybody else.</p>';return;}favorites.forEach((item,index)=>{const row=document.createElement("div");row.className="favorite-item";row.innerHTML=`<p><strong>${item.mode||"Laughrina"}</strong><br>${item.text}</p>`;const x=document.createElement("button");x.type="button";x.textContent="×";x.onclick=()=>{favorites.splice(index,1);saveFavorites();};row.appendChild(x);favoritesList.appendChild(row);});}
 nextButton.onclick=()=>showJoke(currentMode);favoriteButton.onclick=()=>{favorites=isSaved(currentJoke.text)?favorites.filter(i=>i.text!==currentJoke.text):[currentJoke,...favorites];saveFavorites();};roastButton.onclick=()=>{const level=roastSlider.value;currentMode="Gentle Fire";currentJoke={text:randomItem(roasts[level]),tag:["warm tease","little crispy","truth with glitter"][level-1],mode:"Gentle Fire"};jokeText.textContent=currentJoke.text;jokeTag.textContent=`— ${currentJoke.tag}`;modeLabel.textContent="GENTLE FIRE";updateFavoriteButton();$(".stage-card").scrollIntoView({behavior:"smooth",block:"center"});};themeButton.onclick=()=>{document.body.classList.toggle("light");const light=document.body.classList.contains("light");themeButton.textContent=light?"☀":"☾";localStorage.setItem("laughrina-theme",light?"light":"dark");};clearFavorites.onclick=()=>{favorites=[];saveFavorites();};
 
-function playFart(type){const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;const ctx=new AudioCtx(),now=ctx.currentTime,osc=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter();osc.type="sawtooth";osc.frequency.setValueAtTime(type.pitch,now);osc.frequency.exponentialRampToValueAtTime(Math.max(22,type.pitch*.55),now+type.duration);filter.type="lowpass";filter.frequency.value=260;gain.gain.setValueAtTime(.001,now);gain.gain.exponentialRampToValueAtTime(.32,now+.035);for(let i=0;i<5;i++)gain.gain.setValueAtTime(.18+Math.random()*.18,now+.08+i*(type.duration/6));gain.gain.exponentialRampToValueAtTime(.001,now+type.duration);osc.connect(filter).connect(gain).connect(ctx.destination);osc.start(now);osc.stop(now+type.duration+.05);}
+let audioCtx;
+async function playFart(type){
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return;
+  audioCtx ||= new AudioCtx({latencyHint:"interactive"});
+  if(audioCtx.state==="suspended") await audioCtx.resume();
+
+  const ctx=audioCtx, now=ctx.currentTime;
+  const compressor=ctx.createDynamicsCompressor();
+  compressor.threshold.value=-28;
+  compressor.knee.value=8;
+  compressor.ratio.value=12;
+  compressor.attack.value=.002;
+  compressor.release.value=.18;
+
+  const master=ctx.createGain();
+  master.gain.value=2.8;
+  master.connect(compressor).connect(ctx.destination);
+
+  const length=Math.floor(ctx.sampleRate*type.duration);
+  const buffer=ctx.createBuffer(1,length,ctx.sampleRate);
+  const data=buffer.getChannelData(0);
+  let smooth=0;
+  for(let i=0;i<length;i++){
+    const t=i/ctx.sampleRate;
+    const envelope=Math.sin(Math.PI*Math.min(1,t/type.duration));
+    const flutter=.55+.45*Math.sin(2*Math.PI*(18+Math.random()*7)*t);
+    smooth=smooth*.72+(Math.random()*2-1)*.28;
+    data[i]=smooth*flutter*envelope*.95;
+  }
+
+  const noise=ctx.createBufferSource();
+  noise.buffer=buffer;
+  const band=ctx.createBiquadFilter();
+  band.type="bandpass";
+  band.frequency.value=Math.max(180,type.pitch*2.2);
+  band.Q.value=.7;
+  const noiseGain=ctx.createGain();
+  noiseGain.gain.value=1.7;
+  noise.connect(band).connect(noiseGain).connect(master);
+
+  const osc=ctx.createOscillator();
+  const oscGain=ctx.createGain();
+  osc.type="square";
+  osc.frequency.setValueAtTime(type.pitch,now);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(75,type.pitch*.68),now+type.duration);
+  oscGain.gain.setValueAtTime(.001,now);
+  oscGain.gain.exponentialRampToValueAtTime(.8,now+.025);
+  for(let i=1;i<8;i++)oscGain.gain.setValueAtTime(i%2?.75:.3,now+i*(type.duration/9));
+  oscGain.gain.exponentialRampToValueAtTime(.001,now+type.duration);
+  osc.connect(oscGain).connect(master);
+
+  noise.start(now);
+  osc.start(now);
+  noise.stop(now+type.duration);
+  osc.stop(now+type.duration+.03);
+}
+
 function chooseFart(type){playFart(type);windCount++;localStorage.setItem("laughrina-wind-count",windCount);$("#windCount").textContent=windCount;$("#fartEmoji").textContent=type.emoji;$("#fartName").textContent=type.name.toUpperCase();$("#fartComment").textContent=randomItem(type.comments);$("#fartStars").textContent="★".repeat(type.stars)+"☆".repeat(5-type.stars);$("#safetyRating").textContent=`Public safety: ${type.safety}`;$(".fart-result").classList.remove("puff");void $(".fart-result").offsetWidth;$(".fart-result").classList.add("puff");}
 function renderFarts(){const grid=$("#fartGrid");fartTypes.forEach(type=>{const b=document.createElement("button");b.className="fart-button";b.type="button";b.innerHTML=`<span>${type.emoji}</span><strong>${type.name}</strong>`;b.onclick=()=>chooseFart(type);grid.appendChild(b);});$("#windCount").textContent=windCount;$("#regretButton").onclick=()=>chooseFart(randomItem(fartTypes));$("#fortuneButton").onclick=()=>{$("#fortuneText").textContent=`🥠 “${randomItem(fortunes)}”`;};}
 if(localStorage.getItem("laughrina-theme")==="light"){document.body.classList.add("light");themeButton.textContent="☀";}renderControls();renderFavorites();renderFarts();showJoke("Porch Talk");
